@@ -51,4 +51,3 @@ Endpoint para cadastro das informações do livro doado.
     "image_url":"https://exemplo.com"
 }
 ```
-![alt text](image-1.png)

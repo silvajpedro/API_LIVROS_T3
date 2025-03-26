@@ -5,10 +5,11 @@ import sqlite3
 # "request" permite capturar os dados enviados pelo cliente
 # "jsonify" é usado para transformar os dados em formato JSON para resposta
 from flask import Flask, request, jsonify  
-
+from flask_cors import CORS
 # Criamos a aplicação Flask
 # "__name__" indica que este é o arquivo principal do nosso programa
 app = Flask(__name__)
+CORS(app)
 
 # 🔹 Criamos uma rota no Flask chamada "/femandaopix"
 # Quando alguém acessar http://127.0.0.1:5000/femandaopix, essa função será executada automaticamente
