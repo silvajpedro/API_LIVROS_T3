@@ -36,6 +36,40 @@ def init_db():
             """
         )  # O comando acima cria a tabela apenas se ela ainda não existir
 
+# ----------------------------------------------------------------------------------------------------------------
+# ESTRUTURA PARA DEIXAR VALORES SALVOS NO BANCO DE DADOS
+
+# Executa uma consulta SQL para contar quantos livros existem na tabela "livros"
+# Depois, usa fetchone()[0] para pegar apenas o número da contagem
+    quantidade = conn.execute("SELECT COUNT(*) FROM livros").fetchone()[0]
+
+# Se não existir nenhum livro cadastrado (ou seja, quantidade == 0)
+    if quantidade == 0:
+    
+    # Cria uma lista de livros padrão, cada livro é uma tupla com:
+    # (título, categoria, autor, link da imagem)
+        livros_padrao = [
+            ("O Hobbit", "Fantasia", "J.R.R. Tolkien", "https://m.media-amazon.com/images/I/91M9xPIf10L.jpg"),
+            ("1984", "Ficção Científica", "George Orwell", "https://m.media-amazon.com/images/I/819js3EQwbL._AC_UF1000,1000_QL80_.jpg"),
+            ("Dom Casmurro", "Romance", "Machado de Assis", "https://m.media-amazon.com/images/I/61Z2bMhGicL.jpg"),
+        ]
+
+    # Percorre cada livro da lista de livros padrão
+        for livro in livros_padrao:
+        # Separa os dados de cada livro em variáveis individuais
+            titulo, categoria, autor, image_url = livro
+        
+        # Insere o livro no banco de dados, preenchendo os campos da tabela
+            conn.execute(f'''
+                INSERT INTO livros (titulo, categoria, autor, image_url)
+                VALUES ("{titulo}", "{categoria}", "{autor}", "{image_url}")
+            ''')
+        
+        # Salva (confirma) a inserção do livro no banco de dados
+        conn.commit()
+ 
+# -------------------------------------------------------------------------------------------------------------------
+
 # Chamamos a função init_db() para garantir que o banco de dados seja criado antes do uso
 init_db()
 
